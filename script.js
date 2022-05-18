@@ -1,3 +1,7 @@
+var displayValue = 0;
+
+
+
 function add(a, b) {
 
     return a+b;
@@ -33,3 +37,23 @@ function operate(operator, a, b){
             } else return div(a,b);
     }
 }
+
+const buttons = document.getElementById("buttons");
+
+buttons.addEventListener("click", function(e){
+    const button = e.target;
+    const display = document.getElementById("display");
+    const buttonText = button.innerText;
+    if (button.classList.contains("num")) {
+        if (!Number.isNaN(buttonText)){
+            //Change Display Value
+            display.textContent += buttonText;
+            //Add new display value to variable
+            displayValue = display.textContent;
+        }
+
+    }
+
+
+
+})
