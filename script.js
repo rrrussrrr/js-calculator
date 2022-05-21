@@ -5,6 +5,7 @@ var numMode = 0;
 var result = 0;
 var primaryDisplayArr = [];
 var secondaryDisplayArr = [];
+var haveDec = false; //is there a decimal already being used
 
 
 function add(a, b) {
@@ -78,28 +79,28 @@ buttons.addEventListener("click", function(e){
         }
     } else if (button.classList.contains("op")) {
         if (buttonText !== "=" && buttonText !== "Clear") { //if it's not equal or clear
+            haveDec = false; //can do a new decimal since the previous number has finished
             if (numMode === 1) { // if we just typed a number and now are operating
                 numMode = 0;
+
                 if (currentOp === 0 || currentOp === "=") { //if there wasn't a previous operation in the series
                     currentOp = buttonText;
                     //Add new display value to variable
-                    firstValue = primaryDisplay.textContent;
-                    //primaryDisplay.textContent = "";
+                    firstValue = parseFloat(primaryDisplay.textContent);
                     resultDisplay.textContent +=buttonText;
                     
                 } 
                 else { //if there was a previous operation just operate and continue operating on result
                     
 
-                    secondValue = primaryDisplay.textContent;
+                    secondValue = parseFloat(primaryDisplay.textContent);
                     result = operate(currentOp, firstValue, secondValue);
 
                     currentOp = buttonText;
                     primaryDisplay.textContent = result;
                     //Add new display value to variable
-                    firstValue = result;
+                    firstValue = parseFloat(result);
                     resultDisplay.textContent +=buttonText;
-                    //currentOp = "="; //just operated
 
                 }
             } else { //if we just entered another operation, just replace previous 
@@ -115,11 +116,11 @@ buttons.addEventListener("click", function(e){
     
         else if (buttonText === "=" && currentOp !== 0 && numMode === 1) { //equal only works with an entered #
 
-            secondValue = primaryDisplay.textContent;
+            secondValue = parseFloat(primaryDisplay.textContent);
             result = operate(currentOp, firstValue, secondValue);
             primaryDisplay.textContent = result;
             currentOp = "="; 
-            primaryValue = result;
+            primaryValue = parseFloat(result);
             secondValue = 0;
             console.log(firstValue + secondValue);
         }
@@ -141,6 +142,26 @@ buttons.addEventListener("click", function(e){
         primaryDisplayArr.pop();
         primaryDisplay.textContent = primaryDisplayArr.toString();
         resultDisplay.textContent = "";
+    }
+
+    if (buttonText === "."){
+        if (haveDec === false) {
+            haveDec = true;
+            
+            if (numMode === 0){ //if we just hit an operator key, enter new number mode
+                primaryDisplayArr.push(buttonText);
+                primaryDisplay.textContent = buttonText;
+                primaryMinusOne = "";
+                resultDisplay.textContent +=buttonText;
+                numMode = 1;
+            } else { //if not, we're in number mode and can continue entering our number
+                primaryDisplayArr.push(buttonText);
+                primaryDisplay.textContent += buttonText;
+                resultDisplay.textContent +=buttonText;
+            }
+
+        }
+
     }
 
 })
