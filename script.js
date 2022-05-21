@@ -3,6 +3,8 @@ var secondValue = 0;
 var currentOp = 0;
 var numMode = 0;
 var result = 0;
+var primaryDisplayArr = [];
+var secondaryDisplayArr = [];
 
 
 function add(a, b) {
@@ -21,8 +23,9 @@ function mul(a, b) {
 }
 
 function div(a, b) {
-
-    return a / b;
+    if (b === 0 || b === "0") {
+        return "ERROR!  Divide by zero";
+    } else return a / b;
 }
 
 function operate(operator, a, b){
@@ -35,9 +38,7 @@ function operate(operator, a, b){
         case "x":
             return mul(a,b);
         case "%":
-            if (b===0) {
-                return "ERROR: Divide By Zero";
-            } else return div(a,b);
+            return div(a,b);
     }
 }
 
@@ -65,10 +66,13 @@ buttons.addEventListener("click", function(e){
             currentOp = 0;
         }
         if (numMode === 0){ //if we just hit an operator key, enter new number mode
+            primaryDisplayArr.push(buttonText);
             primaryDisplay.textContent = buttonText;
+            primaryMinusOne = "";
             resultDisplay.textContent +=buttonText;
             numMode = 1;
         } else { //if not, we're in number mode and can continue entering our number
+            primaryDisplayArr.push(buttonText);
             primaryDisplay.textContent += buttonText;
             resultDisplay.textContent +=buttonText;
         }
@@ -130,6 +134,12 @@ buttons.addEventListener("click", function(e){
         numMode = 0;
         result = 0;
         primaryDisplay.textContent = "";
+        resultDisplay.textContent = "";
+    }
+
+    if (buttonText === "Back") {
+        primaryDisplayArr.pop();
+        primaryDisplay.textContent = primaryDisplayArr.toString();
         resultDisplay.textContent = "";
     }
 
