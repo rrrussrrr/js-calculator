@@ -83,6 +83,7 @@ function keyActions(button) {
             currentOp = 0;
         }
         if (numMode === 0){ //if we just hit an operator key, enter new number mode
+            primaryDisplayArr = []; //clear the array for backspace to work correctly
             primaryDisplayArr.push(buttonText);
             primaryDisplay.textContent = buttonText;
             primaryMinusOne = "";
