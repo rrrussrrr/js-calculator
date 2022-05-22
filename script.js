@@ -156,7 +156,7 @@ function keyActions(button) {
 
     if (buttonText === "Back") {
         primaryDisplayArr.pop();
-        primaryDisplay.textContent = primaryDisplayArr.toString();
+        primaryDisplay.textContent = primaryDisplayArr.join("");
         resultDisplay.textContent = "";
     }
 
