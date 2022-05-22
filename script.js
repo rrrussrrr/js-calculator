@@ -53,9 +53,25 @@ const buttons = document.getElementById("buttons");
 
 buttons.addEventListener("click", function(e){
     const button = e.target;
+    keyActions(button);
+
+});
+
+document.addEventListener('keydown', function(e){
+
+    const keyy = document.querySelector(`button[data-key="${e.keyCode}"]`);
+    if (!keyy){
+        return;
+    }
+    keyActions(keyy);
+});
+
+function keyActions(button) {
+
     const primaryDisplay = document.getElementById("primary-display");
     const resultDisplay = document.getElementById("result-display");
     const buttonText = button.innerText;
+
     if (button.classList.contains("num")) {
         //if (resultDisplay === ""){
             //Still adding numbers
@@ -164,4 +180,6 @@ buttons.addEventListener("click", function(e){
 
     }
 
-})
+
+
+}
