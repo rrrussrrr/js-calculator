@@ -68,6 +68,8 @@ document.addEventListener('keydown', function(event){
         keyActions(altKeyy);
     } else return;  // if a button without either main or alt key isn't found -> invalid keypress
 
+
+
 });
 
 function keyActions(button) {
@@ -77,11 +79,10 @@ function keyActions(button) {
     const buttonText = button.innerText;
 
     if (button.classList.contains("num")) {
-        //if (resultDisplay === ""){
-            //Still adding numbers
-            //primaryDisplay.textContent += buttonText;
-       // } else {
-            //new operation not using previous so clear
+        if (primaryDisplay.textContent === "0") {
+            primaryDisplayArr = []; //its showing a zero and we want to replace it
+            primaryDisplay.textContent = "";
+        }
         if (currentOp === "="){
             resultDisplay.textContent = "";
             currentOp = 0;
@@ -91,14 +92,10 @@ function keyActions(button) {
             primaryDisplayArr.push(buttonText);
             primaryDisplay.textContent = buttonText;
             primaryMinusOne = "";
-            secondaryDisplayArr.push(buttonText);
-            resultDisplay.textContent = secondaryDisplayArr.join('');
             numMode = 1;
         } else { //if not, we're in number mode and can continue entering our number
             primaryDisplayArr.push(buttonText);
             primaryDisplay.textContent += buttonText;
-            secondaryDisplayArr.push(buttonText);
-            resultDisplay.textContent = secondaryDisplayArr.join('');
         }
     } else if (button.classList.contains("op")) {
         if (buttonText !== "=" && buttonText !== "Clear") { //if it's not equal or clear
@@ -110,10 +107,8 @@ function keyActions(button) {
                     currentOp = buttonText;
                     //Add new display value to variable
                     firstValue = parseFloat(primaryDisplay.textContent);
-                    console.log(secondaryDisplayArr);
-                    secondaryDisplayArr.push(buttonText);
-                    console.log(secondaryDisplayArr);
-                    resultDisplay.textContent = secondaryDisplayArr.join('');
+
+                    resultDisplay.textContent = primaryDisplay.textContent + buttonText;
                     
                 } 
                 else { //if there was a previous operation just operate and continue operating on result
@@ -126,15 +121,14 @@ function keyActions(button) {
                     primaryDisplay.textContent = result;
                     //Add new display value to variable
                     firstValue = parseFloat(result);
-                    secondaryDisplayArr.push(buttonText);
-                    resultDisplay.textContent = secondaryDisplayArr.join('');
+
+                    resultDisplay.textContent = primaryDisplay.textContent + buttonText;
 
                 }
             } else { //if we just entered another operation, just replace previous 
-                secondaryDisplayArr.pop();
+
                 currentOp = buttonText;
-                secondaryDisplayArr.push(buttonText);
-                resultDisplay.textContent = secondaryDisplayArr.join('');
+                resultDisplay.textContent = primaryDisplay.textContent + buttonText;
             }
 
          } 
@@ -149,6 +143,8 @@ function keyActions(button) {
             primaryDisplay.textContent = result;
             currentOp = "="; 
             primaryValue = parseFloat(result);
+
+            resultDisplay.textContent += secondValue + buttonText;
             secondValue = 0;
             numMode = 0;
         }
@@ -163,19 +159,21 @@ function keyActions(button) {
         numMode = 0;
         result = 0;
         primaryDisplayArr = [];
-        primaryDisplay.textContent = "";
+        primaryDisplayArr.push("0");
+        primaryDisplay.textContent = "0";
         secondaryDisplayArr = [];
         resultDisplay.textContent = "";
     }
 
     if (buttonText === "Back") {
         if (numMode === 1) {
-        primaryDisplayArr.pop();
-        primaryDisplay.textContent = primaryDisplayArr.join("");
-        resultDisplay.textContent = "";
+            primaryDisplayArr.pop();
+            if (primaryDisplayArr.length === 0){
+                primaryDisplayArr.push(0); //if you remove the last number, push a zero
+            }
+            primaryDisplay.textContent = primaryDisplayArr.join("");
 
-        secondaryDisplayArr.pop();
-        resultDisplay.textContent = secondaryDisplayArr.join('');
+
         }
     }
 
@@ -187,14 +185,11 @@ function keyActions(button) {
                 primaryDisplayArr.push(buttonText);
                 primaryDisplay.textContent = buttonText;
                 primaryMinusOne = "";
-                secondaryDisplayArr.push(buttonText);
-                resultDisplay.textContent = secondaryDisplayArr.join('');
+
                 numMode = 1;
             } else { //if not, we're in number mode and can continue entering our number
                 primaryDisplayArr.push(buttonText);
                 primaryDisplay.textContent += buttonText;
-                secondaryDisplayArr.push(buttonText);
-                resultDisplay.textContent = secondaryDisplayArr.join('');
             }
 
         }
