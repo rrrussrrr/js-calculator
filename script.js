@@ -6,7 +6,24 @@ var result = 0;
 var primaryDisplayArr = [];
 var secondaryDisplayArr = [];
 var haveDec = false; //is there a decimal already being used
+var divZero = false;
 
+const primaryDisplay = document.getElementById("primary-display");
+const resultDisplay = document.getElementById("result-display");
+
+function clearAll(){
+    firstValue = 0;
+    secondValue = 0;
+    currentOp = 0;
+    numMode = 0;
+    result = 0;
+    primaryDisplayArr = [];
+    primaryDisplayArr.push("0");
+    primaryDisplay.textContent = "0";
+    secondaryDisplayArr = [];
+    resultDisplay.textContent = "";
+    divZero = false;
+}
 
 function add(a, b) {
 
@@ -25,6 +42,7 @@ function mul(a, b) {
 
 function div(a, b) {
     if (b === 0 || b === "0") {
+        divZero = true;
         return "ERROR!  Divide by zero";
     } else return a / b;
 }
@@ -43,22 +61,24 @@ function operate(operator, a, b){
     }
 }
 
-function changeDisplay (num) {
-    const display = document.getElementById("display");
-        
-
-}
 
 const buttons = document.getElementById("buttons");
 
 buttons.addEventListener("click", function(e){
+    if (divZero) {
+        clearAll();
+    }
     const button = e.target;
     keyActions(button);
 
 });
 
 document.addEventListener('keydown', function(event){
-    console.log(currentOp);
+
+    if (divZero) {
+        clearAll();
+    }
+
     const keyCode = event.key;
     const keyy = document.querySelector(`button[data-key="${event.key}"]`);
     const altKeyy = document.querySelector(`button[data-alt="${event.key}"]`);
@@ -74,8 +94,7 @@ document.addEventListener('keydown', function(event){
 
 function keyActions(button) {
 
-    const primaryDisplay = document.getElementById("primary-display");
-    const resultDisplay = document.getElementById("result-display");
+
     const buttonText = button.innerText;
 
     if (button.classList.contains("num")) {
@@ -153,16 +172,7 @@ function keyActions(button) {
     }
 
     if (buttonText === "Clear") {
-        firstValue = 0;
-        secondValue = 0;
-        currentOp = 0;
-        numMode = 0;
-        result = 0;
-        primaryDisplayArr = [];
-        primaryDisplayArr.push("0");
-        primaryDisplay.textContent = "0";
-        secondaryDisplayArr = [];
-        resultDisplay.textContent = "";
+        clearAll();
     }
 
     if (buttonText === "Back") {
