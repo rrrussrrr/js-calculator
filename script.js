@@ -58,6 +58,7 @@ buttons.addEventListener("click", function(e){
 });
 
 document.addEventListener('keydown', function(event){
+    console.log(currentOp);
     const keyCode = event.key;
     const keyy = document.querySelector(`button[data-key="${event.key}"]`);
     if (!keyy){
@@ -87,24 +88,29 @@ function keyActions(button) {
             primaryDisplayArr.push(buttonText);
             primaryDisplay.textContent = buttonText;
             primaryMinusOne = "";
-            resultDisplay.textContent +=buttonText;
+            secondaryDisplayArr.push(buttonText);
+            resultDisplay.textContent = secondaryDisplayArr.join('');
             numMode = 1;
         } else { //if not, we're in number mode and can continue entering our number
             primaryDisplayArr.push(buttonText);
             primaryDisplay.textContent += buttonText;
-            resultDisplay.textContent +=buttonText;
+            secondaryDisplayArr.push(buttonText);
+            resultDisplay.textContent = secondaryDisplayArr.join('');
         }
     } else if (button.classList.contains("op")) {
         if (buttonText !== "=" && buttonText !== "Clear") { //if it's not equal or clear
             haveDec = false; //can do a new decimal since the previous number has finished
-            if (numMode === 1) { // if we just typed a number and now are operating
+            if (numMode === 1 || currentOp === "=") { // if we just typed a number or equalled and now are operating
                 numMode = 0;
 
                 if (currentOp === 0 || currentOp === "=") { //if there wasn't a previous operation in the series
                     currentOp = buttonText;
                     //Add new display value to variable
                     firstValue = parseFloat(primaryDisplay.textContent);
-                    resultDisplay.textContent +=buttonText;
+                    console.log(secondaryDisplayArr);
+                    secondaryDisplayArr.push(buttonText);
+                    console.log(secondaryDisplayArr);
+                    resultDisplay.textContent = secondaryDisplayArr.join('');
                     
                 } 
                 else { //if there was a previous operation just operate and continue operating on result
@@ -117,13 +123,15 @@ function keyActions(button) {
                     primaryDisplay.textContent = result;
                     //Add new display value to variable
                     firstValue = parseFloat(result);
-                    resultDisplay.textContent +=buttonText;
+                    secondaryDisplayArr.push(buttonText);
+                    resultDisplay.textContent = secondaryDisplayArr.join('');
 
                 }
             } else { //if we just entered another operation, just replace previous 
-                resultDisplay.textContent = resultDisplay.textContent.slice(0, -1);
+                secondaryDisplayArr.pop();
                 currentOp = buttonText;
-                resultDisplay.textContent +=buttonText;
+                secondaryDisplayArr.push(buttonText);
+                resultDisplay.textContent = secondaryDisplayArr.join('');
             }
 
          } 
@@ -139,7 +147,6 @@ function keyActions(button) {
             currentOp = "="; 
             primaryValue = parseFloat(result);
             secondValue = 0;
-            console.log(firstValue + secondValue);
             numMode = 0;
         }
 
@@ -152,7 +159,9 @@ function keyActions(button) {
         currentOp = 0;
         numMode = 0;
         result = 0;
+        primaryDisplayArr = [];
         primaryDisplay.textContent = "";
+        secondaryDisplayArr = [];
         resultDisplay.textContent = "";
     }
 
@@ -161,6 +170,9 @@ function keyActions(button) {
         primaryDisplayArr.pop();
         primaryDisplay.textContent = primaryDisplayArr.join("");
         resultDisplay.textContent = "";
+
+        secondaryDisplayArr.pop();
+        resultDisplay.textContent = secondaryDisplayArr.join('');
         }
     }
 
@@ -172,12 +184,14 @@ function keyActions(button) {
                 primaryDisplayArr.push(buttonText);
                 primaryDisplay.textContent = buttonText;
                 primaryMinusOne = "";
-                resultDisplay.textContent +=buttonText;
+                secondaryDisplayArr.push(buttonText);
+                resultDisplay.textContent = secondaryDisplayArr.join('');
                 numMode = 1;
             } else { //if not, we're in number mode and can continue entering our number
                 primaryDisplayArr.push(buttonText);
                 primaryDisplay.textContent += buttonText;
-                resultDisplay.textContent +=buttonText;
+                secondaryDisplayArr.push(buttonText);
+                resultDisplay.textContent = secondaryDisplayArr.join('');
             }
 
         }
