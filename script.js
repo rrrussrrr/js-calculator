@@ -57,9 +57,9 @@ buttons.addEventListener("click", function(e){
 
 });
 
-document.addEventListener('keydown', function(e){
-
-    const keyy = document.querySelector(`button[data-key="${e.keyCode}"]`);
+document.addEventListener('keydown', function(event){
+    const keyCode = event.key;
+    const keyy = document.querySelector(`button[data-key="${event.key}"]`);
     if (!keyy){
         return;
     }
@@ -140,6 +140,7 @@ function keyActions(button) {
             primaryValue = parseFloat(result);
             secondValue = 0;
             console.log(firstValue + secondValue);
+            numMode = 0;
         }
 
 
@@ -156,9 +157,11 @@ function keyActions(button) {
     }
 
     if (buttonText === "Back") {
+        if (numMode === 1) {
         primaryDisplayArr.pop();
         primaryDisplay.textContent = primaryDisplayArr.join("");
         resultDisplay.textContent = "";
+        }
     }
 
     if (buttonText === "."){
