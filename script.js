@@ -61,10 +61,13 @@ document.addEventListener('keydown', function(event){
     console.log(currentOp);
     const keyCode = event.key;
     const keyy = document.querySelector(`button[data-key="${event.key}"]`);
-    if (!keyy){
-        return;
-    }
-    keyActions(keyy);
+    const altKeyy = document.querySelector(`button[data-alt="${event.key}"]`);
+    if (keyy){ //is there a button with this key assigned
+        keyActions(keyy);
+    } else if (altKeyy) {  // try alt key assignment
+        keyActions(altKeyy);
+    } else return;  // if a button without either main or alt key isn't found -> invalid keypress
+
 });
 
 function keyActions(button) {
