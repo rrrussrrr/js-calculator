@@ -38,7 +38,7 @@ function operate(operator, a, b){
             return sub(a,b);
         case "x":
             return mul(a,b);
-        case "%":
+        case "/":
             return div(a,b);
     }
 }
