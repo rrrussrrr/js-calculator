@@ -198,6 +198,11 @@ function keyActions(button) {
         clearAll();
     }
 
+    if (buttonText === "±" && numMode === 1) {
+        primaryDisplayArr = primaryDisplayArr.unshift("-");
+        primaryDisplay.textContent = "-" + primaryDisplay.textContent;
+    }
+
     if (buttonText === "Back") {
         if (numMode === 1) {
             primaryDisplayArr.pop();
