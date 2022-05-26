@@ -11,6 +11,10 @@ var divZero = false;
 const primaryDisplay = document.getElementById("primary-display");
 const resultDisplay = document.getElementById("result-display");
 
+primaryDisplayArr = [];
+primaryDisplayArr.push("0");
+primaryDisplay.textContent = "0";
+
 function clearAll(){
     firstValue = 0;
     secondValue = 0;
