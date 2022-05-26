@@ -85,8 +85,8 @@ document.addEventListener('keydown', function(event){
     }
 
     const keyCode = event.key;
-    const keyy = document.querySelector(`button[data-key="${event.key}"]`);
-    const altKeyy = document.querySelector(`button[data-alt="${event.key}"]`);
+    const keyy = document.querySelector(`div[data-key="${event.key}"]`);
+    const altKeyy = document.querySelector(`div[data-alt="${event.key}"]`);
     if (keyy){ //is there a button with this key assigned
         keyActions(keyy);
     } else if (altKeyy) {  // try alt key assignment
