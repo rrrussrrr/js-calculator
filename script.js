@@ -23,6 +23,7 @@ function clearAll(){
     secondaryDisplayArr = [];
     resultDisplay.textContent = "";
     divZero = false;
+    haveDec = false;
 }
 
 function add(a, b) {
@@ -135,7 +136,7 @@ function keyActions(button) {
 
                     secondValue = parseFloat(primaryDisplay.textContent);
                     result = operate(currentOp, firstValue, secondValue);
-                    result = result.toFixed(7);
+                    result = result.toFixed(7).replace(/\.?0+$/, '');
                     currentOp = buttonText;
                     primaryDisplay.textContent = result;
                     //Add new display value to variable
@@ -159,7 +160,7 @@ function keyActions(button) {
 
             secondValue = parseFloat(primaryDisplay.textContent);
             result = operate(currentOp, firstValue, secondValue);
-            result = result.toFixed(7);
+            result = result.toFixed(7).replace(/\.?0+$/, '');
             primaryDisplay.textContent = result;
             currentOp = "="; 
             primaryValue = parseFloat(result);
