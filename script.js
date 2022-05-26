@@ -149,7 +149,12 @@ function keyActions(button) {
                     result = operate(currentOp, firstValue, secondValue);
                     result = result.toFixed(7).replace(/\.?0+$/, '');
                     currentOp = buttonText;
-                    primaryDisplay.textContent = Number(result).toExponential(2);
+                    if (result.length < 12 ) {
+                        primaryDisplay.textContent = result;
+
+                    } else {
+                        primaryDisplay.textContent = Number(result).toExponential(2);
+                    }
                     //Add new display value to variable
                     firstValue = parseFloat(result);
 
@@ -172,11 +177,16 @@ function keyActions(button) {
             secondValue = parseFloat(primaryDisplay.textContent);
             result = operate(currentOp, firstValue, secondValue);
             result = result.toFixed(7).replace(/\.?0+$/, '');
-            primaryDisplay.textContent = Number(result).toExponential(2);
+            if (result.length < 12 ) {
+                primaryDisplay.textContent = result;
+
+            } else {
+                primaryDisplay.textContent = Number(result).toExponential(2);
+            }
             currentOp = "="; 
             primaryValue = parseFloat(result);
 
-            resultDisplay.textContent += secondValue + " " + buttonText;
+            resultDisplay.textContent += " " + secondValue + " " + buttonText;
             secondValue = 0;
             numMode = 0;
         }
