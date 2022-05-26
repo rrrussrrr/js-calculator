@@ -135,7 +135,7 @@ function keyActions(button) {
 
                     secondValue = parseFloat(primaryDisplay.textContent);
                     result = operate(currentOp, firstValue, secondValue);
-
+                    result = result.toFixed(7);
                     currentOp = buttonText;
                     primaryDisplay.textContent = result;
                     //Add new display value to variable
@@ -159,6 +159,7 @@ function keyActions(button) {
 
             secondValue = parseFloat(primaryDisplay.textContent);
             result = operate(currentOp, firstValue, secondValue);
+            result = result.toFixed(7);
             primaryDisplay.textContent = result;
             currentOp = "="; 
             primaryValue = parseFloat(result);
