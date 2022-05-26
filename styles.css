@@ -1,25 +1,50 @@
 #calculator {
 
 
-
+width: 400px;
+border: solid black 5px;
 }
 
+#displays {
+    width: 400px;
+    height: 150px;
+    display:flex;
+    flex-flow: column;
+    justify-content:space-between;
+    align-items:flex-end;
+
+}
 #primary-display {
 
-    width: 600px;
-    border: solid 10px red;
-    height: 100px;
+    font-size:50px;
+}
+
+#result-display {
+
+    font-size:20px;
 }
 
 #buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    width: 500px;
+    width: 400px;
+
 }
 
-button {
-
-    width: 150px;
-    height: 50px;
+.button {
+    border: 1px solid grey;
+    width: 98px;
+    height: 48px;
 }
+
+.num {
+
+    background-color: lightskyblue;
+}
+
+.op {
+
+    background-color: darkcyan;
+}
+
 
