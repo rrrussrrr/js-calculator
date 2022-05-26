@@ -118,8 +118,15 @@ function keyActions(button) {
             primaryMinusOne = "";
             numMode = 1;
         } else { //if not, we're in number mode and can continue entering our number
-            primaryDisplayArr.push(buttonText);
-            primaryDisplay.textContent += buttonText;
+
+                if (primaryDisplayArr.length < 12 ) { //limtt number of digits so no overflow over side
+                    primaryDisplayArr.push(buttonText);
+                    primaryDisplay.textContent += buttonText;
+                    //let test = primaryDisplay.textContent + buttonText;
+                    //test = Number(test).toExponential(2);
+                    //primaryDisplay.textContent =test;
+                } //else primaryDisplay.textContent += buttonText;
+            
         }
     } else if (button.classList.contains("op")) {
         if (buttonText !== "=" && buttonText !== "Clear") { //if it's not equal or clear
@@ -132,7 +139,7 @@ function keyActions(button) {
                     //Add new display value to variable
                     firstValue = parseFloat(primaryDisplay.textContent);
 
-                    resultDisplay.textContent = primaryDisplay.textContent + buttonText;
+                    resultDisplay.textContent = primaryDisplay.textContent + " " + buttonText;
                     
                 } 
                 else { //if there was a previous operation just operate and continue operating on result
@@ -142,17 +149,17 @@ function keyActions(button) {
                     result = operate(currentOp, firstValue, secondValue);
                     result = result.toFixed(7).replace(/\.?0+$/, '');
                     currentOp = buttonText;
-                    primaryDisplay.textContent = result;
+                    primaryDisplay.textContent = Number(result).toExponential(2);
                     //Add new display value to variable
                     firstValue = parseFloat(result);
 
-                    resultDisplay.textContent = primaryDisplay.textContent + buttonText;
+                    resultDisplay.textContent = primaryDisplay.textContent + " " + buttonText;
 
                 }
             } else { //if we just entered another operation, just replace previous 
 
                 currentOp = buttonText;
-                resultDisplay.textContent = primaryDisplay.textContent + buttonText;
+                resultDisplay.textContent = primaryDisplay.textContent + " " + buttonText;
             }
 
          } 
@@ -165,11 +172,11 @@ function keyActions(button) {
             secondValue = parseFloat(primaryDisplay.textContent);
             result = operate(currentOp, firstValue, secondValue);
             result = result.toFixed(7).replace(/\.?0+$/, '');
-            primaryDisplay.textContent = result;
+            primaryDisplay.textContent = Number(result).toExponential(2);
             currentOp = "="; 
             primaryValue = parseFloat(result);
 
-            resultDisplay.textContent += secondValue + buttonText;
+            resultDisplay.textContent += secondValue + " " + buttonText;
             secondValue = 0;
             numMode = 0;
         }
