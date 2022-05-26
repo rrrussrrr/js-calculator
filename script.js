@@ -52,6 +52,15 @@ function div(a, b) {
     } else return a / b;
 }
 
+function exponent(a, b) {
+    let total = 1;
+
+    for (i=0; i < b; i++) {
+        total = total * a;
+    }
+    return total;
+}
+
 function operate(operator, a, b){
 
     switch (operator) {
@@ -63,6 +72,8 @@ function operate(operator, a, b){
             return mul(a,b);
         case "/":
             return div(a,b);
+        case "^":
+            return exponent(a,b);
     }
 }
 
