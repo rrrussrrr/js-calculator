@@ -1,3 +1,15 @@
+body {
+    background-color:slategray;
+
+}
+
+#main {
+
+display: flex;
+justify-content: center;
+}
+
+
 #calculator {
 
 
@@ -12,6 +24,7 @@ border: solid black 5px;
     flex-flow: column;
     justify-content:space-between;
     align-items:flex-end;
+    background-color: lightsteelblue;
 
 }
 #primary-display {
@@ -35,6 +48,9 @@ border: solid black 5px;
     border: 1px solid grey;
     width: 98px;
     height: 48px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
 .num {
@@ -44,7 +60,24 @@ border: solid black 5px;
 
 .op {
 
-    background-color: darkcyan;
+    background-color: lightblue;
 }
+
+#dec{
+    background-color: lightskyblue;
+
+}
+
+#clear{
+    background-color: lightblue;
+
+}
+
+#backspace{
+    background-color: lightblue;
+
+}
+
+
 
 
