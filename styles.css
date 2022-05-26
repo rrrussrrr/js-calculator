@@ -25,16 +25,19 @@ border: solid black 5px;
     justify-content:space-between;
     align-items:flex-end;
     background-color: lightsteelblue;
+    border-bottom: solid black 5px;
 
 }
 #primary-display {
 
     font-size:50px;
+    margin-right: 10px;
 }
 
 #result-display {
 
     font-size:20px;
+    margin-right:10px;
 }
 
 #buttons {
@@ -78,6 +81,14 @@ border: solid black 5px;
 
 }
 
+#neg{
+    background-color: lightskyblue;
 
+}
+
+#signature{
+    margin-top: 10px;
+    text-align: center;
+}
 
 
